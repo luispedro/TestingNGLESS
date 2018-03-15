@@ -18,6 +18,9 @@ Build with `-O2` and run
     /usr/bin/time -v $(stack path --local-install-root)/bin/testingNGLESS
 ```
 
+This is the result (increasing memory usage, upt to 150M in 3.5 seconds):
+
+![Heap trace](testingNGLESS_O2.svg)
 
 # Build without O2
 
@@ -26,7 +29,9 @@ Build with `-O2` and run
     stack build --fast
     /usr/bin/time -v $(stack path --local-install-root)/bin/testingNGLESS
 ```
+This is the result (roughly stable memory usage, maximum usage around 11MB)
 
+![Heap trace](testingNGLESS-FAST.svg)
 
 # RESULTS
 
