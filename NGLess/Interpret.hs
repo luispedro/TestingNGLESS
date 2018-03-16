@@ -79,7 +79,7 @@ interpretFunction f expr args = do
 
 interpretFunction' :: FuncName -> NGLessObject -> KwArgsValues -> InterpretationEnvIO NGLessObject
 interpretFunction' (FuncName "samfile")   expr args = executeSamfile expr args
-interpretFunction' (FuncName "count")     expr args = runNGLessIO (executeCount expr args)
+interpretFunction' (FuncName "count")     arg@(NGOMappedReadSet _ samf) _ = runNGLessIO (performCount samf >> return arg)
 interpretFunction' f _ _ = error . concat $ ["Interpretation of ", show f, " is not implemented"]
 
 executeSamfile (NGOString fname) _ = do
