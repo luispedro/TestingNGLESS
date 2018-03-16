@@ -5,13 +5,11 @@ module Count
 
 import qualified Data.ByteString as B
 
-import qualified Data.Vector as V
-
 import qualified Data.Conduit as C
 import qualified Data.Conduit.Combinators as CC
 import qualified Data.Conduit.Binary as CB
 import qualified Data.Conduit.List as CL
-import           Data.Conduit ((.|), (=$=))
+import           Data.Conduit ((.|))
 
 
 import Control.Monad.IO.Class   (liftIO)

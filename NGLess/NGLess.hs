@@ -10,7 +10,6 @@ module NGLess
     ) where
 
 
-import qualified Data.ByteString as B
 import           Control.Monad.Except
 
 import qualified Data.Text as T
