@@ -61,7 +61,6 @@ data NGLessObject =
         | NGOMappedReadSet
                     { nglgroupName :: T.Text
                     , nglSamFile :: FilePath
-                    , nglReference :: Maybe T.Text
                     }
         | NGOVoid
     deriving (Eq, Show)

@@ -23,7 +23,7 @@ data Annotator = SeqNameAnnotator (Maybe Int)
 
 
 executeCount :: NGLessObject -> KwArgsValues -> NGLessIO NGLessObject
-executeCount arg@(NGOMappedReadSet _ istream _) args = do
+executeCount arg@(NGOMappedReadSet _ istream) args = do
     performCount istream
     return arg
 executeCount err _ = error ("Invalid Type. Should be used NGOList or NGOAnnotatedSet but type was: " ++ show err)

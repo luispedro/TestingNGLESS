@@ -84,7 +84,7 @@ interpretFunction' f _ _ = error . concat $ ["Interpretation of ", show f, " is 
 
 executeSamfile (NGOString fname) _ = do
     let fname' = T.unpack fname
-    return $ NGOMappedReadSet "testing" fname' Nothing
+    return $ NGOMappedReadSet "testing" fname'
 executeSamfile e args = error ("executeSamfile " ++ show e ++ " " ++ show args)
 
 interpretArguments :: [(Variable, Expression)] -> InterpretationEnvIO [(T.Text, NGLessObject)]
