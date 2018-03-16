@@ -55,7 +55,7 @@ interpret es = do
     evalStateT (interpretIO es) (NGLInterpretEnv $ VariableMapGlobal Map.empty)
 
 interpretIO :: [(Int, Expression)] -> InterpretationEnvIO ()
-interpretIO es = forM_ es $ \(ln,e) -> do
+interpretIO es = forM_ es $ \(_,e) -> do
     interpretTop e
 
 interpretTop :: Expression -> InterpretationEnvIO ()
