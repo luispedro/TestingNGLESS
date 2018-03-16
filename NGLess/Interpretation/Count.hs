@@ -97,7 +97,7 @@ annSamHeaderParser mapthreads anns _ = lineGroups =$= annSamHeaderParser1 anns
     where
         annSamHeaderParser1 (SeqNameAnnotator Nothing) = do
             c <- liftIO $ newIORef (0 :: Int)
-            asyncMapEitherC mapthreads (\(!_, v) -> V.imapM (\ix ell -> Right (B.length $ unwrapByteLine ell)) v)
+            CL.map (\(!_, v) -> V.imap (\ix ell -> (B.length $ unwrapByteLine ell)) v)
                 .| CL.mapM_ (\v -> liftIO $
                                     V.forM_ v $ \ix -> modifyIORef' c (+ ix))
             c' <- liftIO $ readIORef c

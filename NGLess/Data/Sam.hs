@@ -146,7 +146,10 @@ readSamGroupsC' :: forall m . (MonadError String m, MonadBase IO m, MonadIO m) =
 readSamGroupsC' mapthreads respectPairs = do
         CC.dropWhile (isSamHeaderString . unwrapByteLine)
         CC.conduitVector 4096
-            .| asyncMapEitherC mapthreads (liftM groupByName . V.mapM (readSamLine . unwrapByteLine))
+            .| CL.map (liftM groupByName . V.mapM (readSamLine . unwrapByteLine))
+            .| CL.mapM (\case
+                            Right v -> return v
+                            Left _ -> error "Left")
             -- the groups may not be aligned on the group boundary, thus we need to fix them
             .| fixSamGroups
     where
@@ -169,7 +172,9 @@ readSamGroupsC' mapthreads respectPairs = do
                         cur = vs V.! ix
                         cur_tag = samQNameMate cur
         fixSamGroups :: C.Conduit (V.Vector [SamLine]) m (V.Vector [SamLine])
-        fixSamGroups = awaitJust fixSamGroups'
+        fixSamGroups = C.await >>= \case
+                                Nothing -> return ()
+                                Just v -> fixSamGroups' v
         fixSamGroups' :: V.Vector [SamLine] -> C.Conduit (V.Vector [SamLine]) m (V.Vector [SamLine])
         fixSamGroups' prev = C.await >>= \case
             Nothing -> C.yield prev
