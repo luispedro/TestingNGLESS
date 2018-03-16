@@ -16,8 +16,7 @@ import qualified Data.Text as T
 
 
 import NGLess
-
-import Interpretation.Count
+import Count
 
 
 type SimpleVariableMap = Map.Map T.Text NGLessObject
@@ -60,34 +59,34 @@ interpretIO es = forM_ es $ \(_,e) -> do
 
 interpretTop :: Expression -> InterpretationEnvIO ()
 interpretTop (Assignment (Variable var) val) = interpretTopValue val >>= setVariableValue var
-interpretTop (FunctionCall f e args b) = void $ interpretFunction f e args b
+interpretTop (FunctionCall f e args) = void $ interpretFunction f e args
 interpretTop _ = error "Top level statement is NOP"
 
 interpretTopValue :: Expression -> InterpretationEnvIO NGLessObject
-interpretTopValue (FunctionCall f e args b) = interpretFunction f e args b
+interpretTopValue (FunctionCall f e args) = interpretFunction f e args
 interpretTopValue e = runInROEnvIO (interpretExpr e)
 
 interpretExpr :: Expression -> InterpretationROEnv NGLessObject
-interpretExpr (Lookup _ (Variable v)) = lookupVariable v >>= \case
+interpretExpr (Lookup (Variable v)) = lookupVariable v >>= \case
         Nothing -> error ("Could not lookup variable `"++show v++"`")
         Just r' -> return r'
 interpretExpr (ConstStr s) = return $ NGOString s
-interpretExpr not_expr = error ("Expected an expression, received " ++ show not_expr ++ " (in interpretExpr)")
+interpretExpr not_expr = error ("Expected an expression")
 
-interpretFunction :: FuncName -> Expression -> [(Variable, Expression)] -> Maybe Block -> InterpretationEnvIO NGLessObject
-interpretFunction f expr args block = do
+interpretFunction :: FuncName -> Expression -> [(Variable, Expression)] -> InterpretationEnvIO NGLessObject
+interpretFunction f expr args = do
     expr' <- interpretTopValue expr
     args' <- interpretArguments args
-    interpretFunction' f expr' args' block
+    interpretFunction' f expr' args'
 
-interpretFunction' :: FuncName -> NGLessObject -> KwArgsValues -> Maybe Block -> InterpretationEnvIO NGLessObject
-interpretFunction' (FuncName "samfile")   expr args Nothing = executeSamfile expr args
-interpretFunction' (FuncName "count")     expr args Nothing = runNGLessIO (executeCount expr args)
-interpretFunction' f _ _ _ = error . concat $ ["Interpretation of ", show f, " is not implemented"]
+interpretFunction' :: FuncName -> NGLessObject -> KwArgsValues -> InterpretationEnvIO NGLessObject
+interpretFunction' (FuncName "samfile")   expr args = executeSamfile expr args
+interpretFunction' (FuncName "count")     expr args = runNGLessIO (executeCount expr args)
+interpretFunction' f _ _ = error . concat $ ["Interpretation of ", show f, " is not implemented"]
 
 executeSamfile (NGOString fname) _ = do
     let fname' = T.unpack fname
-    return $ NGOMappedReadSet "testing" (File fname') Nothing
+    return $ NGOMappedReadSet "testing" fname' Nothing
 executeSamfile e args = error ("executeSamfile " ++ show e ++ " " ++ show args)
 
 interpretArguments :: [(Variable, Expression)] -> InterpretationEnvIO [(T.Text, NGLessObject)]

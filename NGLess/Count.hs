@@ -1,8 +1,5 @@
-{- Copyright 2015-2018 NGLess Authors
- - License: MIT
- -}
 {-# LANGUAGE FlexibleContexts, CPP #-}
-module Interpretation.Count
+module Count
     ( executeCount
     ) where
 
@@ -21,15 +18,13 @@ import Data.IORef
 
 import NGLess
 
-import Utils.Conduit
-
 data Annotator = SeqNameAnnotator (Maybe Int)
 
 
 executeCount :: NGLessObject -> KwArgsValues -> NGLessIO NGLessObject
-executeCount (NGOList e) args = NGOList <$> mapM (`executeCount` args) e
-executeCount (NGOMappedReadSet _ istream _) args =
-    NGOCounts . File <$> performCount istream (SeqNameAnnotator Nothing)
+executeCount arg@(NGOMappedReadSet _ istream _) args = do
+    performCount istream (SeqNameAnnotator Nothing)
+    return arg
 executeCount err _ = error ("Invalid Type. Should be used NGOList or NGOAnnotatedSet but type was: " ++ show err)
 
 -- | Equivalent to Python's enumerate
@@ -61,11 +56,11 @@ annSamHeaderParser anns = lineGroups =$= annSamHeaderParser1 anns
 isSamHeaderString :: B.ByteString -> Bool
 isSamHeaderString s = not (B.null s) && (B.head s == 64) -- 64 is '@'
 
-performCount :: FileOrStream ->  Annotator -> NGLessIO FilePath
+performCount :: FilePath  ->  Annotator -> NGLessIO FilePath
 performCount istream annotators0 = do
-    let (samfp, samStream) = asSamStream istream
     C.runConduit $
-        samStream
+        CC.sourceFile istream
+            .| linesC
             .| do
                 ann <-
                     CC.takeWhile (isSamHeaderString . unwrapByteLine)

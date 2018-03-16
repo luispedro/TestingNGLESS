@@ -2,28 +2,23 @@
 module NGLess
     ( NGLessIO(..)
     , KwArgsValues
-    , error
     , testNGLessIO
     , runNGLess
     , Expression(..)
     , Variable(..)
-    , Block(..)
     , FuncName(..)
-    , MethodName(..)
-    , NGLType(..)
     , NGLessObject(..)
-    , FileOrStream(..)
-    , asSamStream
-    , samBamConduit
+    , ByteLine(..)
+    , linesC
     ) where
 
 import           Data.Conduit ((=$=))
 import qualified Data.Conduit as C
 
-import Utils.Conduit
 
 import qualified Data.ByteString as B
 import qualified Data.Conduit.Binary as CB
+import qualified Data.Conduit.List as CL
 import           Control.Monad.Trans.Resource (runResourceT)
 import           Control.Monad.Except
 
@@ -74,34 +69,6 @@ newtype FuncName = FuncName { unwrapFuncName :: T.Text }
 instance Show FuncName where
     show (FuncName f) = T.unpack f
 
-newtype MethodName = MethodName { unwrapMethodName :: T.Text }
-    deriving (Eq, Ord, Show)
--- | a block is
---  f(a) using |inputvariables|:
---      expression
-data Block = Block
-                { blockVariable :: [Variable] -- ^ input arguments
-                , blockBody :: Expression -- ^ block body, will likely be Sequence
-                }
-    deriving (Eq, Ord, Show)
-
-data NGLType =
-        NGLString
-        | NGLInteger
-        | NGLDouble
-        | NGLBool
-        | NGLSymbol
-        | NGLFilename
-        | NGLRead
-        | NGLReadSet
-        | NGLMappedRead
-        | NGLMappedReadSet
-        | NGLSequenceSet
-        | NGLCounts
-        | NGLVoid
-        | NGLAny
-        | NGList !NGLType
-    deriving (Eq, Ord, Show)
 
 data NGLessObject =
         NGOString !T.Text
@@ -110,63 +77,30 @@ data NGLessObject =
         | NGODouble !Double
         | NGOSymbol !T.Text
         | NGOFilename !FilePath
-        | NGOSequenceSet FileOrStream
         | NGOMappedReadSet
                     { nglgroupName :: T.Text
-                    , nglSamFile :: FileOrStream
+                    , nglSamFile :: FilePath
                     , nglReference :: Maybe T.Text
                     }
-        | NGOCounts FileOrStream
         | NGOVoid
-        | NGOList [NGLessObject]
-        | NGOExpression Expression
     deriving (Eq, Show)
 
 
 -- | 'Expression' is the main type for holding the AST.
 
 data Expression =
-        Lookup (Maybe NGLType) Variable -- ^ This looks up the variable name
+        Lookup Variable -- ^ This looks up the variable name
         | ConstStr T.Text -- ^ constant string
         | Assignment Variable Expression -- ^ var = expr
-        | FunctionCall FuncName Expression [(Variable, Expression)] (Maybe Block)
-        | MethodCall MethodName Expression (Maybe Expression) [(Variable, Expression)] -- ^ expr.method(expre)
-        | Sequence [Expression]
+        | FunctionCall FuncName Expression [(Variable, Expression)]
     deriving (Eq, Ord)
 
 
-instance Show Expression where
-    show (Lookup (Just t) (Variable v)) = "Lookup '"++T.unpack v++"' as "++show t
-    show (Lookup Nothing (Variable v)) = "Lookup '"++T.unpack v++"' (type unknown)"
-    show (ConstStr t) = show t
-    show (Assignment (Variable v) a) = T.unpack v++" = "++show a
-    show (FunctionCall fname a args block) = show fname ++ "(" ++ show a ++ showArgs args ++ ")"
-                                    ++ (case block of
-                                        Nothing -> ""
-                                        Just b -> "using {"++show b ++ "}")
-    show (MethodCall mname self a args) = "(" ++ show self ++ ")." ++ show mname ++ "( " ++ show a ++ showArgs args ++ " )"
-    show (Sequence e) = "Sequence " ++ show e
+-- | This just signals that a "line" is expected.
+newtype ByteLine = ByteLine { unwrapByteLine :: B.ByteString }
+                deriving (Show)
 
-showArgs [] = ""
-showArgs ((Variable v, e):args) = "; "++T.unpack v++"="++show e++showArgs args
-
--- | reads a SAM (possibly compressed) or BAM file (in the latter case by using
--- 'samtools view' under the hood)
-samBamConduit :: FilePath -> C.Source NGLessIO B.ByteString
-samBamConduit samfp = CB.sourceFile samfp
-
-
-data FileOrStream = File FilePath | Stream FilePath (C.Source NGLessIO ByteLine)
-
-instance Show FileOrStream where
-    show (File fp) = "File " ++ fp
-    show (Stream _ _) = "<STREAM>"
-
-instance Eq FileOrStream where
-    (File fp) == (File fp') = fp == fp'
-    _ == _ = False
-
-
-asSamStream (File fname) = (fname, samBamConduit fname =$= linesC)
-asSamStream (Stream fname istream) = (fname, istream)
+linesC :: (Monad m) => C.Conduit B.ByteString m ByteLine
+linesC = CB.lines =$= CL.map ByteLine
+{-# INLINE linesC #-}
 
