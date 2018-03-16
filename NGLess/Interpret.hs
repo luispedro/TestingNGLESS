@@ -47,8 +47,6 @@ lookupVariable !k = variableMapLookup k . ieVariableEnv <$> ask
 setVariableValue :: T.Text -> NGLessObject -> InterpretationEnvIO ()
 setVariableValue !k !v = modify $ \(NGLInterpretEnv (VariableMapGlobal vm)) -> (NGLInterpretEnv (VariableMapGlobal (Map.insert k v vm)))
 
-
-
 interpret :: [(Int,Expression)] -> NGLessIO ()
 interpret es = do
     evalStateT (interpretIO es) (NGLInterpretEnv $ VariableMapGlobal Map.empty)

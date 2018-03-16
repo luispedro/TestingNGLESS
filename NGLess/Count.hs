@@ -24,7 +24,7 @@ data Annotator = SeqNameAnnotator (Maybe Int)
 
 executeCount :: NGLessObject -> KwArgsValues -> NGLessIO NGLessObject
 executeCount arg@(NGOMappedReadSet _ istream _) args = do
-    performCount istream (SeqNameAnnotator Nothing)
+    performCount istream
     return arg
 executeCount err _ = error ("Invalid Type. Should be used NGOList or NGOAnnotatedSet but type was: " ++ show err)
 
@@ -39,7 +39,7 @@ enumerateC = loop 0
                                     loop (n+1)
 
 
-annSamHeaderParser :: C.Sink B.ByteString NGLessIO Annotator
+annSamHeaderParser :: C.Sink B.ByteString NGLessIO Int
 annSamHeaderParser = lineGroups =$= annSamHeaderParser1
     where
         annSamHeaderParser1 = do
@@ -47,8 +47,7 @@ annSamHeaderParser = lineGroups =$= annSamHeaderParser1
             CL.map (V.map B.length . snd)
                 .| CL.mapM_ (\v -> liftIO $
                                     V.forM_ v $ \ix -> modifyIORef' c (+ ix))
-            c' <- liftIO $ readIORef c
-            return $! SeqNameAnnotator (Just c')
+            liftIO $ readIORef c
         lineGroups = CL.filter (B.isPrefixOf "@SQ\tSN:")
                     .| CC.conduitVector 32768
                     .| enumerateC
@@ -56,14 +55,14 @@ annSamHeaderParser = lineGroups =$= annSamHeaderParser1
 isSamHeaderString :: B.ByteString -> Bool
 isSamHeaderString s = not (B.null s) && (B.head s == 64) -- 64 is '@'
 
-performCount :: FilePath  ->  Annotator -> NGLessIO FilePath
-performCount istream annotators0 = do
+performCount :: FilePath  -> NGLessIO FilePath
+performCount istream = do
     C.runConduit $
         CC.sourceFile istream
             .| CB.lines
             .| do
-                ann <-
-                    CC.takeWhile isSamHeaderString .| annSamHeaderParser
+                c0 <- CC.takeWhile isSamHeaderString .| annSamHeaderParser
+                liftIO $ print c0
                 c <- countC
                 liftIO $ print c
                 return ()
