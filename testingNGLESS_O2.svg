@@ -6,81 +6,75 @@
 <rect x='0.0' y='0.0' width='1280.0' height='720.0' />
 </g>
 <g fill='#000000' stroke='#000000' stroke-width='1.0'>
-<text stroke='none' x='640.0' y='45.0' font-size='25.0' text-anchor='middle'>testingNGLESS (Fri Mar 16 12:13 2018)</text>
+<text stroke='none' x='640.0' y='45.0' font-size='25.0' text-anchor='middle'>testingNGLESS (Fri Mar 16 12:31 2018)</text>
 <text stroke='none' transform='translate(30.0,360.0) rotate(-90.0)' font-size='20.0' text-anchor='middle'>bytes</text>
 <text stroke='none' x='510.0' y='690.0' font-size='20.0' text-anchor='middle'>seconds</text>
 <line x1='60.0' x2='930.0' y1='630.0' y2='630.0' />
 <text stroke='none' x='80.0' y='620.0' font-size='15.0' text-anchor='end'>0</text>
-<line x1='60.0' x2='930.0' y1='600.1814' y2='600.1814' />
-<text stroke='none' x='80.0' y='590.1814' font-size='15.0' text-anchor='end'>20M</text>
-<line x1='60.0' x2='930.0' y1='570.3629' y2='570.3629' />
-<text stroke='none' x='80.0' y='560.3629' font-size='15.0' text-anchor='end'>40M</text>
-<line x1='60.0' x2='930.0' y1='540.5443' y2='540.5443' />
-<text stroke='none' x='80.0' y='530.5443' font-size='15.0' text-anchor='end'>60M</text>
-<line x1='60.0' x2='930.0' y1='510.7257' y2='510.7257' />
-<text stroke='none' x='80.0' y='500.7257' font-size='15.0' text-anchor='end'>80M</text>
-<line x1='60.0' x2='930.0' y1='480.9072' y2='480.9072' />
-<text stroke='none' x='80.0' y='470.9072' font-size='15.0' text-anchor='end'>100M</text>
-<line x1='60.0' x2='930.0' y1='451.0886' y2='451.0886' />
-<text stroke='none' x='80.0' y='441.0886' font-size='15.0' text-anchor='end'>120M</text>
-<line x1='60.0' x2='930.0' y1='421.2701' y2='421.2701' />
-<text stroke='none' x='80.0' y='411.2701' font-size='15.0' text-anchor='end'>140M</text>
-<line x1='60.0' x2='930.0' y1='391.4515' y2='391.4515' />
-<text stroke='none' x='80.0' y='381.4515' font-size='15.0' text-anchor='end'>160M</text>
-<line x1='60.0' x2='930.0' y1='361.6329' y2='361.6329' />
-<text stroke='none' x='80.0' y='351.6329' font-size='15.0' text-anchor='end'>180M</text>
-<line x1='60.0' x2='930.0' y1='331.8144' y2='331.8144' />
-<text stroke='none' x='80.0' y='321.8144' font-size='15.0' text-anchor='end'>200M</text>
-<line x1='60.0' x2='930.0' y1='301.9958' y2='301.9958' />
-<text stroke='none' x='80.0' y='291.9958' font-size='15.0' text-anchor='end'>220M</text>
-<line x1='60.0' x2='930.0' y1='272.1772' y2='272.1772' />
-<text stroke='none' x='80.0' y='262.1772' font-size='15.0' text-anchor='end'>240M</text>
-<line x1='60.0' x2='930.0' y1='242.3587' y2='242.3587' />
-<text stroke='none' x='80.0' y='232.3587' font-size='15.0' text-anchor='end'>260M</text>
-<line x1='60.0' x2='930.0' y1='212.5401' y2='212.5401' />
-<text stroke='none' x='80.0' y='202.5401' font-size='15.0' text-anchor='end'>280M</text>
-<line x1='60.0' x2='930.0' y1='182.7216' y2='182.7216' />
-<text stroke='none' x='80.0' y='172.7216' font-size='15.0' text-anchor='end'>300M</text>
-<line x1='60.0' x2='930.0' y1='152.903' y2='152.903' />
-<text stroke='none' x='80.0' y='142.903' font-size='15.0' text-anchor='end'>320M</text>
-<line x1='60.0' x2='930.0' y1='123.0844' y2='123.0844' />
-<text stroke='none' x='80.0' y='113.0844' font-size='15.0' text-anchor='end'>340M</text>
-<line x1='60.0' x2='930.0' y1='93.26587' y2='93.26587' />
+<line x1='60.0' x2='930.0' y1='585.6387' y2='585.6387' />
+<text stroke='none' x='80.0' y='575.6387' font-size='15.0' text-anchor='end'>10M</text>
+<line x1='60.0' x2='930.0' y1='541.2774' y2='541.2774' />
+<text stroke='none' x='80.0' y='531.2774' font-size='15.0' text-anchor='end'>20M</text>
+<line x1='60.0' x2='930.0' y1='496.9161' y2='496.9161' />
+<text stroke='none' x='80.0' y='486.9161' font-size='15.0' text-anchor='end'>30M</text>
+<line x1='60.0' x2='930.0' y1='452.5548' y2='452.5548' />
+<text stroke='none' x='80.0' y='442.5548' font-size='15.0' text-anchor='end'>40M</text>
+<line x1='60.0' x2='930.0' y1='408.1935' y2='408.1935' />
+<text stroke='none' x='80.0' y='398.1935' font-size='15.0' text-anchor='end'>50M</text>
+<line x1='60.0' x2='930.0' y1='363.8322' y2='363.8322' />
+<text stroke='none' x='80.0' y='353.8322' font-size='15.0' text-anchor='end'>60M</text>
+<line x1='60.0' x2='930.0' y1='319.4709' y2='319.4709' />
+<text stroke='none' x='80.0' y='309.4709' font-size='15.0' text-anchor='end'>70M</text>
+<line x1='60.0' x2='930.0' y1='275.1096' y2='275.1096' />
+<text stroke='none' x='80.0' y='265.1096' font-size='15.0' text-anchor='end'>80M</text>
+<line x1='60.0' x2='930.0' y1='230.7483' y2='230.7483' />
+<text stroke='none' x='80.0' y='220.7483' font-size='15.0' text-anchor='end'>90M</text>
+<line x1='60.0' x2='930.0' y1='186.387' y2='186.387' />
+<text stroke='none' x='80.0' y='176.387' font-size='15.0' text-anchor='end'>100M</text>
+<line x1='60.0' x2='930.0' y1='142.0257' y2='142.0257' />
+<text stroke='none' x='80.0' y='132.0257' font-size='15.0' text-anchor='end'>110M</text>
+<line x1='60.0' x2='930.0' y1='97.66439' y2='97.66439' />
 <line x1='90.0' x2='90.0' y1='660.0' y2='90.0' />
 <text stroke='none' x='100.0' y='650.0' font-size='15.0' text-anchor='start'>0</text>
-<line x1='174.6593' x2='174.6593' y1='660.0' y2='90.0' />
-<text stroke='none' x='184.6593' y='650.0' font-size='15.0' text-anchor='start'>0.05</text>
-<line x1='259.3187' x2='259.3187' y1='660.0' y2='90.0' />
-<text stroke='none' x='269.3187' y='650.0' font-size='15.0' text-anchor='start'>0.1</text>
-<line x1='343.978' x2='343.978' y1='660.0' y2='90.0' />
-<text stroke='none' x='353.978' y='650.0' font-size='15.0' text-anchor='start'>0.15</text>
-<line x1='428.6373' x2='428.6373' y1='660.0' y2='90.0' />
-<text stroke='none' x='438.6373' y='650.0' font-size='15.0' text-anchor='start'>0.2</text>
-<line x1='513.2966' x2='513.2966' y1='660.0' y2='90.0' />
-<text stroke='none' x='523.2966' y='650.0' font-size='15.0' text-anchor='start'>0.25</text>
-<line x1='597.956' x2='597.956' y1='660.0' y2='90.0' />
-<text stroke='none' x='607.956' y='650.0' font-size='15.0' text-anchor='start'>0.3</text>
-<line x1='682.6153' x2='682.6153' y1='660.0' y2='90.0' />
-<text stroke='none' x='692.6153' y='650.0' font-size='15.0' text-anchor='start'>0.35</text>
-<line x1='767.2746' x2='767.2746' y1='660.0' y2='90.0' />
-<text stroke='none' x='777.2746' y='650.0' font-size='15.0' text-anchor='start'>0.4</text>
-<line x1='851.9339' x2='851.9339' y1='660.0' y2='90.0' />
+<line x1='153.2571' x2='153.2571' y1='660.0' y2='90.0' />
+<text stroke='none' x='163.2571' y='650.0' font-size='15.0' text-anchor='start'>0.02</text>
+<line x1='216.5141' x2='216.5141' y1='660.0' y2='90.0' />
+<text stroke='none' x='226.5141' y='650.0' font-size='15.0' text-anchor='start'>0.04</text>
+<line x1='279.7712' x2='279.7712' y1='660.0' y2='90.0' />
+<text stroke='none' x='289.7712' y='650.0' font-size='15.0' text-anchor='start'>0.06</text>
+<line x1='343.0282' x2='343.0282' y1='660.0' y2='90.0' />
+<text stroke='none' x='353.0282' y='650.0' font-size='15.0' text-anchor='start'>0.08</text>
+<line x1='406.2853' x2='406.2853' y1='660.0' y2='90.0' />
+<text stroke='none' x='416.2853' y='650.0' font-size='15.0' text-anchor='start'>0.1</text>
+<line x1='469.5424' x2='469.5424' y1='660.0' y2='90.0' />
+<text stroke='none' x='479.5424' y='650.0' font-size='15.0' text-anchor='start'>0.12</text>
+<line x1='532.7994' x2='532.7994' y1='660.0' y2='90.0' />
+<text stroke='none' x='542.7994' y='650.0' font-size='15.0' text-anchor='start'>0.14</text>
+<line x1='596.0565' x2='596.0565' y1='660.0' y2='90.0' />
+<text stroke='none' x='606.0565' y='650.0' font-size='15.0' text-anchor='start'>0.16</text>
+<line x1='659.3135' x2='659.3135' y1='660.0' y2='90.0' />
+<text stroke='none' x='669.3135' y='650.0' font-size='15.0' text-anchor='start'>0.18</text>
+<line x1='722.5706' x2='722.5706' y1='660.0' y2='90.0' />
+<text stroke='none' x='732.5706' y='650.0' font-size='15.0' text-anchor='start'>0.2</text>
+<line x1='785.8277' x2='785.8277' y1='660.0' y2='90.0' />
+<text stroke='none' x='795.8277' y='650.0' font-size='15.0' text-anchor='start'>0.22</text>
+<line x1='849.0847' x2='849.0847' y1='660.0' y2='90.0' />
+<text stroke='none' x='859.0847' y='650.0' font-size='15.0' text-anchor='start'>0.24</text>
+<line x1='912.3418' x2='912.3418' y1='660.0' y2='90.0' />
 <g fill-opacity='0.7'>
 <g fill='#ffffff'>
 <rect x='90.0' y='90.0' width='840.0' height='540.0' />
 </g>
 <g fill='#5e65cd'>
-<path d='M 90.0,630.0 L 278.1926,550.1885 L 428.5273,468.4807 L 592.7985,381.0492 L 737.2612,308.523 L 913.8826,224.9692 L 930.0,630.0 L 930.0,630.0 L 913.8826,90.0 L 737.2612,201.405 L 592.7985,298.1066 L 428.5273,414.682 L 278.1926,523.6258 L 90.0,630.0 L 90.0,630.0 Z' /></g>
+<path d='M 90.0,630.0 L 448.8288,475.8376 L 930.0,237.1728 L 900.7436,630.0 L 900.7436,630.0 L 930.0,90.0 L 448.8288,418.1643 L 90.0,630.0 L 90.0,630.0 Z' /></g>
 <g fill='#e63068'>
-<path d='M 90.0,630.0 L 278.1926,576.751 L 428.5273,522.2793 L 592.7985,463.9917 L 737.2612,415.6408 L 913.8826,359.9382 L 930.0,630.0 L 930.0,630.0 L 913.8826,224.9692 L 737.2612,308.523 L 592.7985,381.0492 L 428.5273,468.4807 L 278.1926,550.1885 L 90.0,630.0 L 90.0,630.0 Z' /></g>
+<path d='M 90.0,630.0 L 448.8288,533.5107 L 930.0,384.3453 L 900.7436,630.0 L 900.7436,630.0 L 930.0,237.1728 L 448.8288,475.8376 L 90.0,630.0 L 90.0,630.0 Z' /></g>
 <g fill='#0cd390'>
-<path d='M 90.0,630.0 L 278.1926,603.3133 L 428.5273,576.0775 L 592.7985,546.9338 L 737.2612,522.7583 L 913.8826,494.9069 L 930.0,630.0 L 930.0,630.0 L 913.8826,359.9382 L 737.2612,415.6408 L 592.7985,463.9917 L 428.5273,522.2793 L 278.1926,576.751 L 90.0,630.0 L 90.0,630.0 Z' /></g>
+<path d='M 90.0,630.0 L 448.8288,591.1829 L 930.0,531.517 L 900.7436,630.0 L 900.7436,630.0 L 930.0,384.3453 L 448.8288,533.5107 L 90.0,630.0 L 90.0,630.0 Z' /></g>
 <g fill='#b73964'>
-<path d='M 90.0,630.0 L 278.1926,621.0219 L 428.5273,611.9434 L 592.7985,602.229 L 737.2612,594.1703 L 913.8826,584.8865 L 930.0,630.0 L 930.0,630.0 L 913.8826,494.9069 L 737.2612,522.7583 L 592.7985,546.9338 L 428.5273,576.0775 L 278.1926,603.3133 L 90.0,630.0 L 90.0,630.0 Z' /></g>
-<g fill='#cb5edc'>
-<path d='M 90.0,630.0 L 278.1926,629.8756 L 428.5273,629.8758 L 592.7985,629.876 L 737.2612,629.8758 L 913.8826,629.8757 L 930.0,630.0 L 930.0,630.0 L 913.8826,584.8865 L 737.2612,594.1703 L 592.7985,602.229 L 428.5273,611.9434 L 278.1926,621.0219 L 90.0,630.0 L 90.0,630.0 Z' /></g>
+<path d='M 90.0,630.0 L 448.8288,629.6323 L 930.0,629.6326 L 900.7436,630.0 L 900.7436,630.0 L 930.0,531.517 L 448.8288,591.1829 L 90.0,630.0 L 90.0,630.0 Z' /></g>
 <g fill='#bf3725'>
-<path d='M 90.0,630.0 L 278.1926,630.0 L 428.5273,630.0 L 592.7985,630.0 L 737.2612,630.0 L 913.8826,630.0 L 930.0,630.0 L 930.0,630.0 L 913.8826,629.8757 L 737.2612,629.8758 L 592.7985,629.876 L 428.5273,629.8758 L 278.1926,629.8756 L 90.0,630.0 L 90.0,630.0 Z' /></g>
+<path d='M 90.0,630.0 L 448.8288,630.0 L 930.0,630.0 L 900.7436,630.0 L 900.7436,630.0 L 930.0,629.6326 L 448.8288,629.6323 L 90.0,630.0 L 90.0,630.0 Z' /></g>
 <g fill='#5e65cd'>
 <rect x='990.0' y='93.375' width='27.0' height='27.0' />
 </g>
@@ -97,14 +91,10 @@
 <rect x='990.0' y='194.625' width='27.0' height='27.0' />
 </g>
 <text stroke='none' x='1023.75' y='211.5' font-size='15.0' text-anchor='start'>FUN_1_0</text>
-<g fill='#cb5edc'>
+<g fill='#bf3725'>
 <rect x='990.0' y='228.375' width='27.0' height='27.0' />
 </g>
-<text stroke='none' x='1023.75' y='245.25' font-size='15.0' text-anchor='start'>ghc-prim:GHC.Types.I#</text>
-<g fill='#bf3725'>
-<rect x='990.0' y='262.125' width='27.0' height='27.0' />
-</g>
-<text stroke='none' x='1023.75' y='279.0' font-size='15.0' text-anchor='start'>(trace elements)</text>
+<text stroke='none' x='1023.75' y='245.25' font-size='15.0' text-anchor='start'>(trace elements)</text>
 </g>
 </g>
 </svg>

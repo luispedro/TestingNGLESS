@@ -3,9 +3,8 @@ module Main
     ) where
 
 import Control.Monad.Trans.Resource
-
 import Interpret
 
-main = runResourceT $ interpret [(0, "count")]
+main = runResourceT $ interpret [()]
 
 
