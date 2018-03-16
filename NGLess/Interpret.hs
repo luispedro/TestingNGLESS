@@ -19,7 +19,8 @@ import           Data.Conduit ((.|))
 
 import Control.Monad.IO.Class   (liftIO)
 
-import NGLess
+import           Control.Monad.Trans.Resource
+type NGLessIO = ResourceT IO
 
 
 data NGLInterpretEnv = NGLInterpretEnv ()
