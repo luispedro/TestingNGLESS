@@ -18,7 +18,6 @@ import           Data.Conduit ((.|))
 
 
 import Control.Monad.IO.Class   (liftIO)
-import Data.IORef
 
 import NGLess
 
@@ -57,11 +56,7 @@ parseHeader :: C.Sink B.ByteString NGLessIO Int
 parseHeader =
         CL.filter (B.isPrefixOf "@SQ\tSN:")
                     .| enumerateC
-                    .| do
-                            c <- liftIO $ newIORef (0 :: Int)
-                            CL.map (B.length . snd)
-                                .| CL.mapM_ (\ix -> liftIO $ modifyIORef' c (+ ix))
-                            liftIO $ readIORef c
+                    .| countC
 
 isHeader :: B.ByteString -> Bool
 isHeader s = not (B.null s) && (B.head s == 64) -- 64 is '@'
