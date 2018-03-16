@@ -9,6 +9,7 @@ import qualified Data.Vector as V
 
 import qualified Data.Conduit as C
 import qualified Data.Conduit.Combinators as CC
+import qualified Data.Conduit.Binary as CB
 import qualified Data.Conduit.List as CL
 import           Data.Conduit ((.|), (=$=))
 
@@ -38,18 +39,17 @@ enumerateC = loop 0
                                     loop (n+1)
 
 
-annSamHeaderParser :: Annotator -> C.Sink ByteLine NGLessIO Annotator
-annSamHeaderParser anns = lineGroups =$= annSamHeaderParser1 anns
+annSamHeaderParser :: C.Sink B.ByteString NGLessIO Annotator
+annSamHeaderParser = lineGroups =$= annSamHeaderParser1
     where
-        annSamHeaderParser1 (SeqNameAnnotator Nothing) = do
+        annSamHeaderParser1 = do
             c <- liftIO $ newIORef (0 :: Int)
-            CL.map (V.map (B.length . unwrapByteLine) . snd)
+            CL.map (V.map B.length . snd)
                 .| CL.mapM_ (\v -> liftIO $
                                     V.forM_ v $ \ix -> modifyIORef' c (+ ix))
             c' <- liftIO $ readIORef c
             return $! SeqNameAnnotator (Just c')
-        annSamHeaderParser1 ann = CC.sinkNull >> return ann
-        lineGroups = CL.filter (B.isPrefixOf "@SQ\tSN:" . unwrapByteLine)
+        lineGroups = CL.filter (B.isPrefixOf "@SQ\tSN:")
                     .| CC.conduitVector 32768
                     .| enumerateC
 
@@ -60,11 +60,10 @@ performCount :: FilePath  ->  Annotator -> NGLessIO FilePath
 performCount istream annotators0 = do
     C.runConduit $
         CC.sourceFile istream
-            .| linesC
+            .| CB.lines
             .| do
                 ann <-
-                    CC.takeWhile (isSamHeaderString . unwrapByteLine)
-                        .| annSamHeaderParser annotators0
+                    CC.takeWhile isSamHeaderString .| annSamHeaderParser
                 c <- countC
                 liftIO $ print c
                 return ()

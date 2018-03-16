@@ -2,28 +2,18 @@
 module NGLess
     ( NGLessIO(..)
     , KwArgsValues
-    , testNGLessIO
     , runNGLess
     , Expression(..)
     , Variable(..)
     , FuncName(..)
     , NGLessObject(..)
-    , ByteLine(..)
-    , linesC
     ) where
-
-import           Data.Conduit ((=$=))
-import qualified Data.Conduit as C
 
 
 import qualified Data.ByteString as B
-import qualified Data.Conduit.Binary as CB
-import qualified Data.Conduit.List as CL
-import           Control.Monad.Trans.Resource (runResourceT)
 import           Control.Monad.Except
 
 import qualified Data.Text as T
-
 import           Control.Monad.Trans.Resource
 import           Control.Monad.Trans.Control
 import           Control.Monad.Base
@@ -49,16 +39,7 @@ runNGLess :: (MonadError String m) => Either String a -> m a
 runNGLess (Left err) = error err
 runNGLess (Right v) = return v
 
-testNGLessIO :: NGLessIO a -> IO a
-testNGLessIO (NGLessIO act) = do
-        perr <- (runResourceT . runExceptT) act
-        return (showError perr)
-    where
-        showError (Right a) = a
-        showError (Left e) = error (show e)
-
 type KwArgsValues = [(T.Text, NGLessObject)]
-
 
 newtype Variable = Variable T.Text
     deriving (Eq, Ord, Show)
@@ -86,8 +67,6 @@ data NGLessObject =
     deriving (Eq, Show)
 
 
--- | 'Expression' is the main type for holding the AST.
-
 data Expression =
         Lookup Variable -- ^ This looks up the variable name
         | ConstStr T.Text -- ^ constant string
@@ -95,12 +74,4 @@ data Expression =
         | FunctionCall FuncName Expression [(Variable, Expression)]
     deriving (Eq, Ord)
 
-
--- | This just signals that a "line" is expected.
-newtype ByteLine = ByteLine { unwrapByteLine :: B.ByteString }
-                deriving (Show)
-
-linesC :: (Monad m) => C.Conduit B.ByteString m ByteLine
-linesC = CB.lines =$= CL.map ByteLine
-{-# INLINE linesC #-}
 
