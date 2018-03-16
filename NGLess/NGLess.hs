@@ -1,18 +1,12 @@
 {-# LANGUAGE OverloadedStrings, FlexibleContexts, MultiParamTypeClasses, TypeFamilies, GeneralizedNewtypeDeriving #-}
 module NGLess
     ( NGLessIO(..)
-    , KwArgsValues
     , runNGLess
-    , Expression(..)
-    , Variable(..)
-    , FuncName(..)
-    , NGLessObject(..)
     ) where
 
 
 import           Control.Monad.Except
 
-import qualified Data.Text as T
 import           Control.Monad.Trans.Resource
 import           Control.Monad.Trans.Control
 import           Control.Monad.Base
@@ -37,39 +31,3 @@ instance MonadBaseControl IO NGLessIO where
 runNGLess :: (MonadError String m) => Either String a -> m a
 runNGLess (Left err) = error err
 runNGLess (Right v) = return v
-
-type KwArgsValues = [(T.Text, NGLessObject)]
-
-newtype Variable = Variable T.Text
-    deriving (Eq, Ord, Show)
-
-newtype FuncName = FuncName { unwrapFuncName :: T.Text }
-    deriving (Eq, Ord)
-
-instance Show FuncName where
-    show (FuncName f) = T.unpack f
-
-
-data NGLessObject =
-        NGOString !T.Text
-        | NGOBool !Bool
-        | NGOInteger !Integer
-        | NGODouble !Double
-        | NGOSymbol !T.Text
-        | NGOFilename !FilePath
-        | NGOMappedReadSet
-                    { nglgroupName :: T.Text
-                    , nglSamFile :: FilePath
-                    }
-        | NGOVoid
-    deriving (Eq, Show)
-
-
-data Expression =
-        Lookup Variable -- ^ This looks up the variable name
-        | ConstStr T.Text -- ^ constant string
-        | Assignment Variable Expression -- ^ var = expr
-        | FunctionCall FuncName Expression [(Variable, Expression)]
-    deriving (Eq, Ord)
-
-

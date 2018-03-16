@@ -11,8 +11,6 @@ import Interpret
 runNGLessIO :: NGLessIO a -> IO ()
 runNGLessIO (NGLessIO act) = runResourceT (runExceptT act) >> return ()
 
-main =
-    runNGLessIO $
-        interpret [(1, (FunctionCall (FuncName "count") (ConstStr "testing.sam") []))]
+main = runNGLessIO $ interpret [(0, "count")]
 
 

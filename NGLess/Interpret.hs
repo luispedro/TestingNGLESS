@@ -26,16 +26,16 @@ import NGLess
 data NGLInterpretEnv = NGLInterpretEnv ()
 type InterpretationEnvIO = StateT  NGLInterpretEnv NGLessIO
 
-interpret :: [(Int,Expression)] -> NGLessIO ()
+interpret :: [(Int,String)] -> NGLessIO ()
 interpret es = do
     evalStateT (interpretIO es) (NGLInterpretEnv ())
 
-interpretIO :: [(Int, Expression)] -> InterpretationEnvIO ()
+interpretIO :: [(Int, String)] -> InterpretationEnvIO ()
 interpretIO es = forM_ es $ \(_,e) -> do
     interpretTop e
 
-interpretTop :: Expression -> InterpretationEnvIO ()
-interpretTop (FunctionCall f _ _) = void $ lift (performCount "testing.sam")
+interpretTop :: String -> InterpretationEnvIO ()
+interpretTop "count" = void $ lift (performCount "testing.sam")
 interpretTop _ = error "Top level statement is NOP"
 
 enumerateC :: (Monad m) => C.Conduit a m (Int, a)
