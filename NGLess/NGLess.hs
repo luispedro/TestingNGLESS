@@ -17,8 +17,6 @@ module NGLess
     , samBamConduit
     ) where
 
-import Data.Sam
-
 import           Data.Conduit ((=$=))
 import qualified Data.Conduit as C
 
@@ -118,7 +116,6 @@ data NGLessObject =
                     , nglSamFile :: FileOrStream
                     , nglReference :: Maybe T.Text
                     }
-        | NGOMappedRead [SamLine]
         | NGOCounts FileOrStream
         | NGOVoid
         | NGOList [NGLessObject]
